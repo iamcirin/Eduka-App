@@ -1,0 +1,27 @@
+.btn-primary{
+    color: #fff;
+    background-color: #0f1550 !important;
+    border-color: #0f1550 !important;
+}
+.icon-img{
+    width:200px;
+    height:200px;
+    margin-bottom: 1rem;
+}
+
+.reset{
+    color: black;
+    margin-bottom: 5rem;
+}
+
+.reg-btn{
+    background-color: rgb(65, 95, 161) !important;
+    border-color: rgb(65, 95, 161) !important;
+    margin-top: 1rem;
+}
+
+.mt-5{
+    width: 1200px !important;
+    padding: 0 4rem !important;
+}
+
