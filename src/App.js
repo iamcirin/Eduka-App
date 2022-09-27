@@ -7,6 +7,7 @@ import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import RequireAuth from "./components/Auth/RequireAuth";
 import StudentList from "./components/Student/StudentList";
+import StudentForm from "./components/Student/StudentForm";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route element={<RequireAuth />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/student-list" element={<StudentList />} />
+          <Route path="/student-form" element={<StudentForm />} />
         </Route>
       </Routes>
     </Router>

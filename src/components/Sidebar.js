@@ -19,24 +19,11 @@ const Sidebar = () => {
         role="menu"
         data-accordion="false"
       >
-        {/*  Add icons to the links using the .nav-icon class
-       with font-awesome or any other icon font library*/}
         <li className="nav-item">
-          <a href="#" className="nav-link">
-            <i className="nav-icon fas fa-edit"></i>
-            <p>
-              Forms
-              <i className="fas fa-angle-left right"></i>
-            </p>
-          </a>
-          <ul className="nav nav-treeview">
-            <li className="nav-item">
-              <a href="#" className="nav-link">
-                <i className="far fa-circle nav-icon"></i>
-                <p>Register student</p>
-              </a>
-            </li>
-          </ul>
+          <Link to="/student-form" className="nav-link">
+            <i className="nav-icon fas fa-users"></i>
+            <p> Student Registration</p>
+          </Link>
         </li>
         <li className="nav-item">
           <Link to="/student-list" className="nav-link">
