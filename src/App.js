@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
+import RequireAuth from "./components/Auth/RequireAuth";
 
 const App = () => {
   return (
@@ -12,7 +13,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="eduka/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route element={<RequireAuth />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
     </Router>
   );

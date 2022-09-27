@@ -4,14 +4,21 @@ import loginIcon from "../images/user2.png";
 import "./login.css";
 import loginImg from "../images/login2.png";
 import { Link, useNavigate } from "react-router-dom";
+import useLogin from "../hooks/useLogin";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { loginUser } = useLogin();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    navigate("/dashboard");
+    await loginUser({}, (err, res) => {
+      if (err) {
+        alert(err.response.message);
+        return;
+      }
+      navigate("/dashboard");
+    });
   };
 
   return (
