@@ -21,7 +21,7 @@ const useAxiosPrivate = () => {
     const responseIntercept = axiosPrivate.interceptors.response.use(
       (response) => response,
       async (error) => {
-        logoutUser();
+        // logoutUser();
         return Promise.reject(error);
       }
     );
