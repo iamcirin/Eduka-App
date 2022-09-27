@@ -1,5 +1,6 @@
 import React from "react";
-import useLogin from "../../hooks/useLogin";
+import { Link } from "react-router-dom";
+import useLogin from "../hooks/useLogin";
 
 const Sidebar = () => {
   const { logoutUser } = useLogin();
@@ -38,22 +39,12 @@ const Sidebar = () => {
           </ul>
         </li>
         <li className="nav-item">
-          <a href="#" className="nav-link">
+          <Link to="/student-list" className="nav-link">
             <i className="nav-icon fas fa-table"></i>
-            <p>
-              Tables
-              <i className="fas fa-angle-left right"></i>
-            </p>
-          </a>
-          <ul className="nav nav-treeview">
-            <li className="nav-item">
-              <a href="pages/tables/simple.html" className="nav-link">
-                <i className="far fa-circle nav-icon"></i>
-                <p>View students</p>
-              </a>
-            </li>
-          </ul>
+            <p> Student List</p>
+          </Link>
         </li>
+
         <li className="nav-item">
           <a href="#" className="nav-link" onClick={handleLogout}>
             <i className="nav-icon fas fa-user"></i>

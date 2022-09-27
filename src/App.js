@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import RequireAuth from "./components/Auth/RequireAuth";
+import StudentList from "./components/Student/StudentList";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="eduka/register" element={<Register />} />
         <Route element={<RequireAuth />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/student-list" element={<StudentList />} />
         </Route>
       </Routes>
     </Router>
