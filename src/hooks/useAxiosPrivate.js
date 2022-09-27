@@ -1,9 +1,11 @@
 import { axiosPrivate } from "../api/axios";
 import { useEffect } from "react";
 import useAuth from "./useAuth";
+import useLogin from "./useLogin";
 
 const useAxiosPrivate = () => {
   const { auth } = useAuth();
+  const { logoutUser } = useLogin();
 
   useEffect(() => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
@@ -16,10 +18,19 @@ const useAxiosPrivate = () => {
       (error) => Promise.reject(error)
     );
 
+    const responseIntercept = axiosPrivate.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        logoutUser();
+        return Promise.reject(error);
+      }
+    );
+
     return () => {
       axiosPrivate.interceptors.request.eject(requestIntercept);
+      axiosPrivate.interceptors.response.eject(responseIntercept);
     };
-  }, [auth]);
+  }, [auth, logoutUser]);
 
   return axiosPrivate;
 };
