@@ -1,20 +1,26 @@
-import React from 'react'
-import {Button, Col, Container, Form, Row} from 'react-bootstrap'
-import loginIcon from '../images/user2.png'
-import './login.css'
-import loginImg from '../images/login2.png'
-import {Link} from 'react-router-dom'
-
-
+import React from "react";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import loginIcon from "../images/user2.png";
+import "./login.css";
+import loginImg from "../images/login2.png";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    navigate("/dashboard");
+  };
+
   return (
     <>
       <Container className="mt-5">
         <Row>
           <Col lg={4} md={6} sm={12} className="text-center mt-1 p-3 mb-5">
             <img className="icon-img" src={loginIcon} alt="" />
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Control type="email" placeholder="Enter email" />
               </Form.Group>
@@ -29,7 +35,7 @@ const Login = () => {
               <div className="text-left mt-1">
                 <small className="reset">No account?</small>
               </div>
-              <Link to='eduka/register'>
+              <Link to="eduka/register">
                 <Button
                   variant="primary btn-primary col-12 reg-btn"
                   type="submit"
@@ -47,6 +53,6 @@ const Login = () => {
       </Container>
     </>
   );
-}
+};
 
-export default Login
+export default Login;
