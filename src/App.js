@@ -14,7 +14,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="eduka/register" element={<Register />} />
+        <Route path="/register" element={<Register />} />
         <Route element={<RequireAuth />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/student-list" element={<StudentList />} />
