@@ -1,6 +1,15 @@
 import React from "react";
+import useLogin from "../../hooks/useLogin";
 
 const Sidebar = () => {
+  const { logoutUser } = useLogin();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+
+    logoutUser();
+  };
+
   return (
     <nav className="mt-2">
       <ul
@@ -44,6 +53,12 @@ const Sidebar = () => {
               </a>
             </li>
           </ul>
+        </li>
+        <li className="nav-item">
+          <a href="#" className="nav-link" onClick={handleLogout}>
+            <i className="nav-icon fas fa-user"></i>
+            <p>Logout</p>
+          </a>
         </li>
       </ul>
     </nav>

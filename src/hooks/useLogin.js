@@ -1,9 +1,11 @@
 import React, { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import useAuth from "./useAuth";
 
 const useLogin = () => {
   const { setAuth } = useAuth();
+  const { navigate } = useNavigate();
 
   const loginUser = useCallback(
     async (credentials, cb) => {
@@ -36,9 +38,21 @@ const useLogin = () => {
     },
     [axios, setAuth]
   );
+  const logoutUser = useCallback(async () => {
+    setAuth((prev) => ({
+      ...prev,
+      isAuthenticated: false,
+      accessToken: "",
+      user: null,
+      loading: false,
+      error: null,
+    }));
+    navigate("/");
+  }, [setAuth]);
 
   return {
     loginUser,
+    logoutUser,
   };
 };
 
