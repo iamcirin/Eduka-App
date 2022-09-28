@@ -33,6 +33,30 @@ const useStudentActions = () => {
       }));
     }
   }, [axiosPrivate]);
+  const registerStudent = useCallback(
+    async (payload, cb) => {
+      setStudent((prev) => ({ ...prev, loading: true }));
+      try {
+        const res = await axiosPrivate.post("/student", payload);
+
+        setStudent((prev) => ({
+          ...prev,
+          loading: false,
+          error: null,
+          list: [{ ...res.data }, ...prev.list],
+        }));
+        cb(null, res.data);
+      } catch (error) {
+        setStudent((prev) => ({
+          ...prev,
+          loading: false,
+          error: error?.response?.message,
+        }));
+        cb(error?.response?.messag, null);
+      }
+    },
+    [axiosPrivate]
+  );
 
   const setStudentStatus = useCallback(
     async (std, status) => {
@@ -61,11 +85,36 @@ const useStudentActions = () => {
     },
     [axiosPrivate]
   );
+  const notifyParent = useCallback(
+    async (std) => {
+      setStudent((prev) => ({ ...prev, loading: true }));
+      try {
+        const res = await axiosPrivate.post(`/notify`, { _id: std._id });
+
+        setStudent((prev) => ({
+          ...prev,
+          loading: false,
+          error: null,
+        }));
+
+        alert(res.data.message);
+      } catch (error) {
+        setStudent((prev) => ({
+          ...prev,
+          loading: false,
+          error: error.response.message,
+        }));
+      }
+    },
+    [axiosPrivate]
+  );
 
   return {
     getALlStudents,
     student,
     setStudentStatus,
+    registerStudent,
+    notifyParent,
   };
 };
 
