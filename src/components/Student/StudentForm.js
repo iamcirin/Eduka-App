@@ -1,8 +1,31 @@
+import { useFormik } from "formik";
 import React from "react";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import Layout from "../Auth/Layout";
 import Header from "../Dashboard/Content/Header";
+import * as Yup from "yup";
 
 const StudentForm = () => {
+  const formik = useFormik({
+    initialValues: {
+      fname: "",
+      lname: "",
+      email: "",
+      parentEmail: "",
+    },
+    validationSchema: Yup.object({
+      fname: Yup.string().required("First name is required"),
+      lname: Yup.string().required("Last name is required"),
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Student email is required"),
+      parentEmail: Yup.string()
+        .email("Invalid email address")
+        .required("Parent email is required"),
+    }),
+    onSubmit: async (values) => {},
+  });
+
   return (
     <Layout>
       <div className="content-wrapper">
@@ -11,24 +34,80 @@ const StudentForm = () => {
           class="w-75 card card-primary mx-auto p-4"
           style={{ minHeight: 500 }}
         >
-          <form>
-            <div class="row">
-              <div class="col">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="First name"
-                />
-              </div>
-              <div class="col">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Last name"
-                />
-              </div>
-            </div>
-          </form>
+          <Container className="mt-5">
+            <Row>
+              <Col className="text-center mt-1 p-3 mb-5">
+                <form onSubmit={formik.handleSubmit} noValidate>
+                  <Form.Group className="mb-3 d-flex flex-column">
+                    <Form.Control
+                      className={`${formik.errors.fname ? "is-invalid" : ""}`}
+                      type="text"
+                      placeholder="Enter First Name"
+                      name="fname"
+                      onChange={formik.handleChange}
+                      value={formik.values.fname}
+                    />
+                    {formik.errors.fname && (
+                      <small className="text-danger text-left">
+                        {formik.errors.fname}
+                      </small>
+                    )}
+                  </Form.Group>
+                  <Form.Group className="mb-3 d-flex flex-column">
+                    <Form.Control
+                      className={`${formik.errors.lname ? "is-invalid" : ""}`}
+                      type="text"
+                      placeholder="Enter Last Name"
+                      name="lname"
+                      onChange={formik.handleChange}
+                      value={formik.values.lname}
+                    />
+                    {formik.errors.lname && (
+                      <small className="text-danger text-left">
+                        {formik.errors.lname}
+                      </small>
+                    )}
+                  </Form.Group>
+                  <Form.Group className="mb-3 d-flex flex-column">
+                    <Form.Control
+                      className={`${formik.errors.email ? "is-invalid" : ""}`}
+                      type="email"
+                      placeholder="Enter Email"
+                      name="email"
+                      onChange={formik.handleChange}
+                      value={formik.values.email}
+                    />
+                    {formik.errors.email && (
+                      <small className="text-danger text-left">
+                        {formik.errors.email}
+                      </small>
+                    )}
+                  </Form.Group>
+                  <Form.Group className="mb-3 d-flex flex-column">
+                    <Form.Control
+                      className={`${
+                        formik.errors.parentEmail ? "is-invalid" : ""
+                      }`}
+                      type="email"
+                      placeholder="Enter Parent Email"
+                      name="parentEmail"
+                      onChange={formik.handleChange}
+                      value={formik.values.parentEmail}
+                    />
+                    {formik.errors.parentEmail && (
+                      <small className="text-danger text-left">
+                        {formik.errors.parentEmail}
+                      </small>
+                    )}
+                  </Form.Group>
+
+                  <Button variant="primary btn-primary col-12" type="submit">
+                    Register Student
+                  </Button>
+                </form>
+              </Col>
+            </Row>
+          </Container>
         </div>
       </div>
     </Layout>
