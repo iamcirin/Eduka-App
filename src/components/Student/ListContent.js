@@ -8,7 +8,8 @@ const COLOR = {
 };
 
 const ListContent = () => {
-  const { getALlStudents, student, setStudentStatus } = useStudentActions();
+  const { getALlStudents, student, setStudentStatus, notifyParent } =
+    useStudentActions();
 
   useEffect(() => {
     getALlStudents();
@@ -17,6 +18,10 @@ const ListContent = () => {
   const handleStudentStatus = (std, status) => {
     if (student.loading) return;
     setStudentStatus(std, status);
+  };
+  const handleNotify = (std) => {
+    if (student.loading) return;
+    notifyParent(std);
   };
 
   return (
@@ -28,6 +33,7 @@ const ListContent = () => {
             <th scope="col">Last Name</th>
             <th scope="col">Status</th>
             <th scope="col">Actions</th>
+            <th scope="col">Notify</th>
           </tr>
         </thead>
         <tbody>
@@ -52,6 +58,15 @@ const ListContent = () => {
                   className="nav-icon fas fa-user"
                   style={{ color: "gray" }}
                 ></i>
+              </td>
+              <td>
+                <button
+                  className="btn btn-warning text-white"
+                  onClick={() => handleNotify(std)}
+                  disabled={student.loading}
+                >
+                  <i className="nav-icon fas fa-bell"></i>
+                </button>
               </td>
             </tr>
           ))}

@@ -85,12 +85,36 @@ const useStudentActions = () => {
     },
     [axiosPrivate]
   );
+  const notifyParent = useCallback(
+    async (std) => {
+      setStudent((prev) => ({ ...prev, loading: true }));
+      try {
+        const res = await axiosPrivate.post(`/notify`, { _id: std._id });
+
+        setStudent((prev) => ({
+          ...prev,
+          loading: false,
+          error: null,
+        }));
+
+        alert(res.data.message);
+      } catch (error) {
+        setStudent((prev) => ({
+          ...prev,
+          loading: false,
+          error: error.response.message,
+        }));
+      }
+    },
+    [axiosPrivate]
+  );
 
   return {
     getALlStudents,
     student,
     setStudentStatus,
     registerStudent,
+    notifyParent,
   };
 };
 
