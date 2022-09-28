@@ -4,9 +4,18 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import Layout from "../Auth/Layout";
 import Header from "../Dashboard/Content/Header";
 import * as Yup from "yup";
+import useStudentActions from "../../hooks/useStudentActions";
+import { useNavigate } from "react-router-dom";
 
 const StudentForm = () => {
+  const { student, registerStudent } = useStudentActions();
+
+  const navigate = useNavigate();
+
   const formik = useFormik({
+    validateOnBlur: false,
+    validateOnChange: false,
+    validateOnMount: false,
     initialValues: {
       fname: "",
       lname: "",
@@ -23,7 +32,21 @@ const StudentForm = () => {
         .email("Invalid email address")
         .required("Parent email is required"),
     }),
-    onSubmit: async (values) => {},
+    onSubmit: async (values, formikHelpers) => {
+      registerStudent(values, (err, res) => {
+        if (err) {
+          alert("Something went wrong");
+          return;
+        }
+        formikHelpers.setValues({
+          fname: "",
+          lname: "",
+          email: "",
+          parentEmail: "",
+        });
+        alert("Student registered");
+      });
+    },
   });
 
   return (
@@ -101,7 +124,18 @@ const StudentForm = () => {
                     )}
                   </Form.Group>
 
-                  <Button variant="primary btn-primary col-12" type="submit">
+                  <Button
+                    variant="primary btn-primary col-12"
+                    type="submit"
+                    disabled={student.loading}
+                  >
+                    {student.loading && (
+                      <span
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                    )}
                     Register Student
                   </Button>
                 </form>

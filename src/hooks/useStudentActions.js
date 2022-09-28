@@ -33,6 +33,30 @@ const useStudentActions = () => {
       }));
     }
   }, [axiosPrivate]);
+  const registerStudent = useCallback(
+    async (payload, cb) => {
+      setStudent((prev) => ({ ...prev, loading: true }));
+      try {
+        const res = await axiosPrivate.post("/student", payload);
+
+        setStudent((prev) => ({
+          ...prev,
+          loading: false,
+          error: null,
+          list: [{ ...res.data }, ...prev.list],
+        }));
+        cb(null, res.data);
+      } catch (error) {
+        setStudent((prev) => ({
+          ...prev,
+          loading: false,
+          error: error?.response?.message,
+        }));
+        cb(error?.response?.messag, null);
+      }
+    },
+    [axiosPrivate]
+  );
 
   const setStudentStatus = useCallback(
     async (std, status) => {
@@ -66,6 +90,7 @@ const useStudentActions = () => {
     getALlStudents,
     student,
     setStudentStatus,
+    registerStudent,
   };
 };
 
